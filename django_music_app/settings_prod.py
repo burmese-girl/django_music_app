@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #custom app
-    'music'
+    'music',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
