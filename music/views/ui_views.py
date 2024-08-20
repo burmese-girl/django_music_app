@@ -1,0 +1,6 @@
+from django.shortcuts import render
+from ..models import Track
+
+def track_list(request):
+    tracks = Track.objects.all()  # Fetch all tracks from the database
+    return render(request, 'music/track_list.html', {'tracks': tracks})
