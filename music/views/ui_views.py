@@ -3,4 +3,4 @@ from ..models import Track
 
 def track_list(request):
     tracks = Track.objects.all()  # Fetch all tracks from the database
-    return render(request, 'music/track_list.html', {'tracks': tracks})
+    return render(request, 'music/music_tracks.html', {'tracks': tracks})

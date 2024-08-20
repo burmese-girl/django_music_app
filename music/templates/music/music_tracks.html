@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music App</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Tracks</h1>
+            <button class="shuffle-button">Shuffle All</button>
+        </header>
+        <div class="track-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Duration</th>
+                        <th>Size</th>
+                        <th>Play</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for track in tracks %}
+                        <tr>
+                            <td>{{ track.album.name }}</td>
+                            <td>{{ track.title }}</td>
+                            <td>{{ track.album.release_date }}</td>
+                            <td>{{ track.duration }}</td>
+                            <td>{{ track.file.size }}</td>
+                            <td>
+                                <audio controls>
+                                    <source src="{{ track.file.url }}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="player">
+            <img src="{% static 'images/track_image.jpg' %}" alt="Track Image">
+            <div class="track-info">
+                <p>{{ current_track.title }}</p>
+            </div>
+            <audio id="current-track-player" controls>
+                <source src="{{ current_track.file.url }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <button id="play-pause-button" class="play-pause">Play/Pause</button>
+        </div>
+    </div>
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>
