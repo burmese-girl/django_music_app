@@ -5,5 +5,10 @@ The frontend site will be handled by bootstrap, html and javascript.
 
 ![music_home_page](https://github.com/user-attachments/assets/dd1c5f07-ce84-4854-86af-3c09c2950537)
 
+# Installation
+pip install requirements.txt
+
+
+
 
 
