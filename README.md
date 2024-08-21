@@ -3,6 +3,7 @@
 The frontend site will be handled by bootstrap, html and javascript. 
 
 
-![music_main_page](https://github.com/user-attachments/assets/af73e6b6-134c-4f76-b375-d5427b061c98)
+![music_home_page](https://github.com/user-attachments/assets/dd1c5f07-ce84-4854-86af-3c09c2950537)
+
 
 
