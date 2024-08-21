@@ -22,8 +22,13 @@
     margin: 0;
 }
 
+.music-header {
+     width: 10%;
+     height: 45px;
+}
+
 .shuffle-button {
-    background-color: #4CAF50;
+    background-color: #F3830C;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -50,7 +55,7 @@
 }
 
 .track-list th {
-    background-color: #4CAF50;
+    background-color: #F3830C;
     color: white;
 }
 
@@ -85,7 +90,7 @@
 }
 
 .play-pause {
-    background-color: #4CAF50;
+    background-color: #F3830C;
     color: white;
     border: none;
     padding: 10px 20px;

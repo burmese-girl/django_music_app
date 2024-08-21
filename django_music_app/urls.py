@@ -18,13 +18,17 @@ from django.contrib import admin
 from django.urls import path,include,re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
+from music.views import ui_views
 
 
 
 BASE_URLPATTERNS = [
     path('admin/', admin.site.urls),
+    re_path(r'^favicon\.ico$',RedirectView.as_view(url='/static/images/favicon.ico')),
     path('music/', include("music.api_urls")),
     path('ui_music/', include("music.urls")),
+    re_path('^$',ui_views.index, name='index')
 ]
 
 
