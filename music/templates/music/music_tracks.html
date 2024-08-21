@@ -17,7 +17,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Name</th>
+
                         <th>Title</th>
                         <th>Date</th>
                         <th>Duration</th>
@@ -28,7 +28,7 @@
                 <tbody>
                     {% for track in tracks %}
                         <tr>
-                            <td>{{ track.album.name }}</td>
+
                             <td>{{ track.title }}</td>
                             <td>{{ track.album.release_date }}</td>
                             <td>{{ track.duration }}</td>
@@ -45,7 +45,7 @@
             </table>
         </div>
         <div class="player">
-            <img src="{% static 'images/track_image.jpg' %}" alt="Track Image">
+            <img src="{% static 'images/track_image.jpg' %}" alt="Image">
             <div class="track-info">
                 <p>{{ current_track.title }}</p>
             </div>
