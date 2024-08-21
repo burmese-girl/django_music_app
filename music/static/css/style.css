@@ -24,11 +24,11 @@
 
 .music-header {
      width: 10%;
-     height: 45px;
+     height: 65px;
 }
 
 .shuffle-button {
-    background-color: #F3830C;
+    background-color: #4de054;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -41,6 +41,18 @@
     background-color: #45a049;
 }
 
+.play-all-button {
+    background-color: #4de054;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.play-all-button:hover {
+    background-color: #45a049;
+}
 /* Track list table styles */
 .track-list table {
     width: 100%;
@@ -55,7 +67,7 @@
 }
 
 .track-list th {
-    background-color: #F3830C;
+    background-color: #4de054;
     color: white;
 }
 
@@ -90,7 +102,7 @@
 }
 
 .play-pause {
-    background-color: #F3830C;
+    background-color: #4de054;
     color: white;
     border: none;
     padding: 10px 20px;

@@ -1,8 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Handle the shuffle button click event
     const shuffleButton = document.querySelector('.shuffle-button');
+    const playAllButton = document.querySelector('.play-all-button');
+    const playPauseButton = document.querySelector('#play-pause-button');
     const trackList = document.querySelector('.track-list tbody');
-    let tracks = Array.from(trackList.querySelectorAll('tr'));
+    const audioTracks = Array.from(document.querySelectorAll('audio'));
+    let currentTrackIndex = 0;
+    let isPlaying = false;
 
     // Function to shuffle an array
     function shuffleArray(array) {
@@ -13,41 +16,61 @@ document.addEventListener('DOMContentLoaded', function() {
         return array;
     }
 
-    // Function to shuffle tracks
+    // Shuffle tracks function
     function shuffleTracks() {
-        // Shuffle the tracks array
-        const shuffledTracks = shuffleArray(tracks);
-
-        // Clear the current track list
+        const shuffledTracks = shuffleArray(Array.from(trackList.querySelectorAll('tr')));
         trackList.innerHTML = '';
-
-        // Append shuffled tracks to the DOM
         shuffledTracks.forEach(function(track) {
             trackList.appendChild(track);
         });
     }
 
-    // Add event listener to the shuffle button
-    shuffleButton.addEventListener('click', function() {
-        shuffleTracks();
-    });
+    // Function to play the current track
+    function playTrack(index) {
+        if (index >= 0 && index < audioTracks.length) {
+            console.log("Playing track index:", index);
+            audioTracks[index].play();
+            audioTracks[index].addEventListener('ended', playNextTrack);
+            isPlaying = true;
+        }
+    }
 
-
-
-
-    // Handle play/pause button click event in the player
-    const playPauseButton = document.querySelector('#play-pause-button');
-    const audioPlayer = document.querySelector('#current-track-player');
-
-    playPauseButton.addEventListener('click', function() {
-        if (audioPlayer.paused) {
-            audioPlayer.play();
-            playPauseButton.textContent = 'Pause';
+    // Play the next track in the list
+    function playNextTrack() {
+        currentTrackIndex++;
+        if (currentTrackIndex < audioTracks.length) {
+            playTrack(currentTrackIndex);
         } else {
-            audioPlayer.pause();
+            currentTrackIndex = 0;
+            isPlaying = false;
             playPauseButton.textContent = 'Play';
+        }
+    }
+
+    // Play all tracks in sequence
+    function playAllTracks() {
+        currentTrackIndex = 0;
+        console.log("Play All =>", audioTracks.length);
+        if (audioTracks.length > 0) {
+            playTrack(currentTrackIndex);
+        }
+    }
+
+    // Toggle play/pause button
+    playPauseButton.addEventListener('click', function() {
+        if (isPlaying) {
+            audioTracks[currentTrackIndex].pause();
+            isPlaying = false;
+            playPauseButton.textContent = 'Play';
+        } else {
+            playTrack(currentTrackIndex);
+            playPauseButton.textContent = 'Pause';
         }
     });
 
-    // Additional functionality can be added here, such as loading the next track, etc.
+    // Add event listener to the shuffle button
+    shuffleButton.addEventListener('click', shuffleTracks);
+
+    // Add event listener to the play all button
+    playAllButton.addEventListener('click', playAllTracks);
 });
