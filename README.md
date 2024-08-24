@@ -92,7 +92,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-For any inquiries or feedback, feel free to contact me via [devstella80@example.com](mailto:devstella80@example.com).
+For any inquiries or feedback, feel free to contact me via [devstella80@gmail.com](mailto:devstella80@gmail.com).
 
 
 
