@@ -6,7 +6,7 @@ The frontend site will be handled by bootstrap, html and javascript.
 
 A web application built with Django that allows users to manage and listen to their favorite music tracks.
 
-!![music_home_page](https://github.com/user-attachments/assets/dd1c5f07-ce84-4854-86af-3c09c2950537)
+![music_home_page](https://github.com/user-attachments/assets/dd1c5f07-ce84-4854-86af-3c09c2950537)
 
 ## Features
 
@@ -22,7 +22,7 @@ A web application built with Django that allows users to manage and listen to th
 ### Prerequisites
 
 - Python 3.10+
-- Django 5.1
+- Django 5.0.5
 - Git
 
 ### Clone the Repository
