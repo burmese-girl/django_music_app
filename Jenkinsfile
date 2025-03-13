@@ -29,7 +29,7 @@ pipeline {
         stage('Build & Deploy') {
             steps {
                 echo 'Deploying application...'
-                # Add deployment steps here (e.g., Docker, SSH, AWS, etc.)
+                // Add deployment steps here (e.g., Docker, SSH, AWS, etc.)
             }
         }
     }
