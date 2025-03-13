@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+
+    environment {
+        VENV_DIR = 'venv'
+        DJANGO_SETTINGS_MODULE = 'django_music_app.settings'
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/burmese-girl/django_music_app.git'
+            }
+        }
+
+        stage('Set Up Python Environment') {
+            steps {
+                sh 'python3 -m venv $VENV_DIR'
+                sh './venv/bin/pip install -r requirements.txt'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh './venv/bin/python manage.py test'
+            }
+        }
+
+        stage('Build & Deploy') {
+            steps {
+                echo 'Deploying application...'
+                // Add deployment steps here (e.g., Docker, SSH, AWS, etc.)
+                
+                //  // Copy files to EC2
+                // sh '''
+                // scp -i /path/to/key.pem -r . ubuntu@<EC2-PUBLIC-IP>:/home/ubuntu/django_music_app
+                // '''
+
+                // // Connect to EC2 and start the app
+                // sh '''
+                // ssh -i /path/to/key.pem ubuntu@<EC2-PUBLIC-IP> << 'EOF'
+                // cd /home/ubuntu/django_music_app
+                // python3 -m venv venv
+                // source venv/bin/activate
+                // pip install -r requirements.txt
+                // nohup python3 manage.py runserver 0.0.0.0:8000 &
+                // EOF
+                // '''
+            }
+        }
+    }
+}
+

@@ -1,10 +1,6 @@
+//Local Jenkins with Docker
 pipeline {
     agent any
-
-    environment {
-        VENV_DIR = 'venv'
-        DJANGO_SETTINGS_MODULE = 'django_music_app.settings'
-    }
 
     stages {
         stage('Clone Repository') {
@@ -13,25 +9,22 @@ pipeline {
             }
         }
 
-        stage('Set Up Python Environment') {
+        stage('Build Docker Image') {
             steps {
-                sh 'python3 -m venv $VENV_DIR'
-                sh './venv/bin/pip install -r requirements.txt'
+                echo 'Building Docker image for local environment...'
+                sh 'docker build -t django-music-app-local .'
             }
         }
 
-        stage('Run Tests') {
+        stage('Run Docker Container') {
             steps {
-                sh './venv/bin/python manage.py test'
-            }
-        }
-
-        stage('Build & Deploy') {
-            steps {
-                echo 'Deploying application...'
-                // Add deployment steps here (e.g., Docker, SSH, AWS, etc.)
+                echo 'Running Docker container for local development...'
+                sh '''
+                docker stop django-music-app-local || true
+                docker rm django-music-app-local || true
+                docker run -d -p 8000:8000 --name django-music-app-local django-music-app-local
+                '''
             }
         }
     }
 }
-

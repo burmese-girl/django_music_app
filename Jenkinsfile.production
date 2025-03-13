@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "your-dockerhub-username/django-music-app"
+        CONTAINER_NAME = "django_music_app"
+        EC2_USER = "ubuntu"
+        EC2_IP = "<EC2-PUBLIC-IP>"
+        SSH_KEY = "/path/to/key.pem"
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                 git branch: 'main', url: 'https://github.com/burmese-girl/django_music_app.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                echo 'Building Docker image...'
+                sh 'docker build -t $IMAGE_NAME .'
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                echo 'Pushing image to Docker Hub...'
+                withDockerRegistry([credentialsId: 'docker-hub-credentials', url: '']) {
+                    sh 'docker push $IMAGE_NAME'
+                }
+            }
+        }
+
+        stage('Deploy to EC2') {
+            steps {
+                echo 'Deploying application on EC2...'
+
+                // Copy Docker Compose file to EC2
+                sh '''
+                scp -i $SSH_KEY docker-compose.yml $EC2_USER@$EC2_IP:/home/ubuntu/
+                '''
+
+                // SSH into EC2 and run Docker
+                sh '''
+                ssh -i $SSH_KEY $EC2_USER@$EC2_IP << 'EOF'
+                docker pull $IMAGE_NAME
+                docker stop $CONTAINER_NAME || true
+                docker rm $CONTAINER_NAME || true
+                docker run -d --name $CONTAINER_NAME -p 8000:8000 $IMAGE_NAME
+                EOF
+                '''
+            }
+        }
+    }
+}
