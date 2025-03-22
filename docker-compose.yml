@@ -1,25 +1,39 @@
-version: '3'
+version: '3.8'
 
 services:
-  web:
-    build: .
-    ports:
-      - "8000:8000"
-    env_file:
-      - .env
-    depends_on:
-      - db
-    restart: always
-
-  db:
-    image: postgres:14
+  musicapp-postgres:
+    image: postgres
+    container_name: musicapp-postgres
     restart: always
     environment:
-      POSTGRES_DB: music_db
-      POSTGRES_USER: music_user
-      POSTGRES_PASSWORD: music_pass
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data  # ✅ Persistent Storage
+    networks:
+      - musicapp-network
+
+  django-music-app:
+    build: .
+    container_name: django-music-app
+    restart: always
+    depends_on:
+      - musicapp-postgres
+    env_file:
+      - .env
+    ports:
+      - "8090:8000"
+    networks:
+      - musicapp-network
+    volumes:
+      - .:/app
 
 volumes:
-  postgres_data:
+  postgres_data:  # ✅ Ensure volume is declared here
+
+networks:
+  musicapp-network:
+    driver: bridge
